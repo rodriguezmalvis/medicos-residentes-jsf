@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:body> 
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="conteudo">
+	
+	<h:form>
+	<div style="text-align: center">
+	<p:outputLabel for="filtro">Filtrar por nome: </p:outputLabel>
+	<p:inputText id="filtro" style="width:500px" value="#{medicoResidenteBean.filtro}">
+		<p:ajax update="@form" event="keyup" listener="#{medicoResidenteBean.getMedicosInativosLikeNome}" delay="1000"></p:ajax>
+	</p:inputText><br></br><br></br>
+	</div>
+	
+	<p:dataTable var="medico" value="#{medicoResidenteBean.medicosInativos}">
+		<p:column headerText="Foto">
+	        <p:graphicImage width="50px" height="50px" url="#{medico.pathFotoCompleto}" />
+	    </p:column>
+	
+	    <p:column headerText="Nome Completo">
+	        <h:outputText value="#{medico.nomeCompleto}" />
+	    </p:column>
+	 
+	    <p:column headerText="Data Nascimento">
+	        <h:outputText value="#{medico.dataNascimento.time}" >
+	        	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"></f:convertDateTime>
+			</h:outputText>
+	    </p:column>
+	 
+	    <p:column headerText="Supervisores">
+	        <h:outputText value="#{medico.professoresSupervisores}" />
+	    </p:column>
+	 
+	    <p:column headerText="Lugar Graduacao">
+	        <h:outputText value="#{medico.lugarGraduacao}" />
+	    </p:column>
+	    
+	    <p:column headerText="Estado">
+	        <h:outputText value="#{medico.ativo}" />
+	    </p:column>
+	    
+	    <p:column headerText="Ficha">
+	    	<h:outputLink value="ficha.xhtml">
+	    		<h:outputText value="Ficha" />
+	    		<f:param name="id" value="#{medico.id}"/>
+	    	</h:outputLink>
+	    </p:column>
+	</p:dataTable>
+		
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+
+</h:body> 
+</html>

@@ -1,0 +1,27 @@
+1. Conta openshift Medicos Residentes:
+
+	rodriguezmalvis@gmail.com KkVjyMCc7M
+
+2. Instalamos ruby: sudo apt-get install ruby-full
+
+3. checamos que ruby foi instalado: 
+
+	ruby -e 'puts "Welcome to Ruby"'
+	Welcome to Ruby
+
+4. Instalamos git: sudo apt-get install git-core
+
+5. Checamos que git foi instalado: git --version
+
+6. Instalamos cliente openshift rhc: sudo gem install rhc
+
+7. configuramos cliente openshift: rhc setup
+
+8. key shh armazenada em: /home/rrm/.openshift/express.conf nome: rodriguezmalvisr
+
+9. WildFly 10 administrator added.  Please make note of these credentials:
+
+   Username: adminHnylkxe
+   Password: m3qvaxKtEmyi
+   
+   run 'rhc port-forward sicmer' to access the web admin area on port 9990.

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h:outputStylesheet name="css/fonte.css" />
+	<title>Sistema de cadastro de medicos residentes (SICMER)</title>
+</h:head> 
+<h:body> 
+
+	<div id="cabecalho"><br></br>
+		<div style="width: 100%; background-color: black; height: 60px">
+			<div align="center"><font color="white" size="15">SICMER  </font><font color="white" size="2">(Sistema de Cadastro de Médicos Residentes)</font></div>
+		</div>
+	</div><br></br>
+	
+	<div id="corpo">
+		<p:menubar>
+			<p:menuitem value="Novo Medico" url="cadastro.xhtml" rendered="#{usuarioLogadoBean.usuarioLogado.master or usuarioLogadoBean.usuarioLogado.admin}"/>
+			<p:menuitem value="Listar Medicos" url="listagem.xhtml"/>
+			<p:menuitem value="Medicos Inativos" url="listagemInativos.xhtml" rendered="#{usuarioLogadoBean.usuarioLogado.master or usuarioLogadoBean.usuarioLogado.admin}"/>
+			<p:menuitem value="Novo Usuario" url="cadastraUsuario.xhtml" rendered="#{usuarioLogadoBean.usuarioLogado.master}"/>
+			<p:menuitem value="Listar Usuarios" url="listaUsuarios.xhtml" rendered="#{usuarioLogadoBean.usuarioLogado.master}"/>
+			<p:menuitem value="Usuarios Inativos" url="listaUsuariosInativos.xhtml" rendered="#{usuarioLogadoBean.usuarioLogado.master}"/>
+			<p:menuitem value="Meu Perfil" url="meuPerfil.xhtml" action="#{usuarioLogadoBean.meuPerfil()}">
+			</p:menuitem>
+			<f:facet name="options">
+	        <h:form>
+	          <h:outputLabel value="Usuario logado: #{usuarioLogadoBean.usuarioLogado.email}" style="margin-right:1cm"/>
+	          <p:commandButton value="Sair" icon="ui-icon-extlink" action="#{usuarioLogadoBean.deslogar()}" ></p:commandButton>
+	        </h:form>
+	        </f:facet>
+		</p:menubar><br></br>
+		<ui:insert name="conteudo"/>
+	</div>
+	
+	<div id="rodape">
+		<br></br><br></br><div style="width: 100%; background-color: black; height: 30px">
+			<div align="center"><font color="white" size="2" style="vertical-align: 9px;">Developed by: RUROMA@DESIGNS</font><h:graphicImage height="30px" value="resources/imagens/rodapeSICMER.jpg" /></div>
+		</div>
+	<br></br>
+	</div>
+
+</h:body> 
+</html>

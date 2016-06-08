@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:body> 
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="conteudo">
+	
+	<h:form>
+	<div style="text-align: center">
+	<p:outputLabel for="filtro">Filtrar por nome: </p:outputLabel>
+	<p:inputText id="filtro" style="width:500px" value="#{usuarioBean.filtro}">
+		<p:ajax update="@form" event="keyup" listener="#{usuarioBean.getUsuariosInativosLikeNome}" delay="1000"></p:ajax>
+	</p:inputText><br></br><br></br>
+	</div>
+	
+	<p:dataTable var="usuario" value="#{usuarioBean.usuariosInativos}">
+		<p:column headerText="Foto">
+	        <p:graphicImage width="50px" height="50px" url="#{usuario.pathFotoCompleto}" />
+	    </p:column>
+		
+	    <p:column headerText="Nome Completo">
+	        <h:outputText value="#{usuario.nome}" />
+	    </p:column>
+	 
+	    <p:column headerText="Rol">
+	        <h:outputText value="#{usuario.rol}" >
+			</h:outputText>
+	    </p:column>
+	 
+	    <p:column headerText="Status">
+	        <h:outputText value="#{usuario.statusUsuario}" />
+	    </p:column>
+	    
+	    <p:column headerText="Perfil">
+	    	<h:outputLink value="perfil.xhtml">
+	    		<h:outputText value="Perfil" />
+	    		<f:param name="id" value="#{usuario.id}"/>
+	    	</h:outputLink>
+	    </p:column>
+	</p:dataTable>
+		
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+
+</h:body> 
+</html>

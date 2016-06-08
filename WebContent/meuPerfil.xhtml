@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+
+<ui:composition template="/_template.xhtml">
+<ui:define name="conteudo">
+	
+		<p:panel id="basic" header="Perfil de #{usuarioLogadoBean.usuarioLogado.nome}" style="margin-bottom:20px">
+		<div style="width: 100%; text-align: center"><p:graphicImage  id="foto" width="100px" height="100px" url="#{usuarioLogadoBean.pathFoto}" /></div><br />
+        <p:panelGrid style="width:100%">
+        	<p:row>
+            	<p:column styleClass="ui-widget-header">Nome</p:column>
+            	<p:column ><h:outputText value="#{usuarioLogadoBean.usuarioLogado.nome}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Email</p:column>
+            	<p:column ><h:outputText value="#{usuarioLogadoBean.usuarioLogado.email}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Rol</p:column>
+            	<p:column ><h:outputText value="#{usuarioLogadoBean.usuarioLogado.rol}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Status</p:column>
+            	<p:column ><h:outputText value="#{usuarioLogadoBean.usuarioLogado.statusUsuario}"/></p:column>
+        	</p:row>
+        </p:panelGrid><br></br>
+    
+    <f:facet name="actions">
+            	
+        <h:outputLink id="editar" value="cadastraUsuario.xhtml" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+        	<h:outputText styleClass="ui-icon ui-icon-pencil" />
+        	<f:param name="id" value="#{usuarioLogadoBean.usuarioLogado.id}"/>
+        </h:outputLink>
+        <p:tooltip id="editarFade" for="editar" value="Editar Usuario" />
+        
+    </f:facet>
+    </p:panel>
+
+</ui:define>
+</ui:composition>
+
+</h:body> 
+</html>

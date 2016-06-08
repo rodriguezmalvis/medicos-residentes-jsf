@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+
+<ui:composition template="/_template.xhtml">
+<ui:define name="conteudo">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{usuarioBean.idUsuario}"></f:viewParam>
+		<f:viewAction action="#{usuarioBean.buscaUsuario()}"></f:viewAction>
+	</f:metadata>
+	
+		<p:panel id="basic" header="Perfil de #{usuarioBean.usuario.nome}" style="margin-bottom:20px">
+		<div style="width: 100%; text-align: center"><p:graphicImage  id="foto" width="100px" height="100px" url="#{usuarioBean.pathFoto}" /></div><br />
+        <p:panelGrid style="width:100%">
+        	<p:row>
+            	<p:column styleClass="ui-widget-header">Nome</p:column>
+            	<p:column ><h:outputText value="#{usuarioBean.usuario.nome}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Email</p:column>
+            	<p:column ><h:outputText value="#{usuarioBean.usuario.email}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Rol</p:column>
+            	<p:column ><h:outputText value="#{usuarioBean.usuario.rol}"/></p:column>
+            	<p:column styleClass="ui-widget-header">Status</p:column>
+            	<p:column ><h:outputText value="#{usuarioBean.usuario.statusUsuario}"/></p:column>
+        	</p:row>
+        </p:panelGrid><br></br>
+    
+    <f:facet name="actions">
+    	<h:form rendered="#{usuarioBean.usuario.ativo}">
+    		<h:inputHidden value="#{usuarioBean.idUsuario}" />
+	    	<p:commandLink id="eliminar" action="#{usuarioBean.remover()}" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+	        	<h:outputText styleClass="ui-icon ui-icon-close"></h:outputText>
+	        	<p:confirm header="Atençao!!" message="Eliminar Usuario??" icon="ui-icon-alert" />
+	        </p:commandLink>
+	        
+	        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	    	</p:confirmDialog>
+	        <p:tooltip id="eliminarFade" for="eliminar" value="Eliminar Usuario" />
+	    </h:form>
+	    
+	    <h:form rendered="#{!usuarioBean.usuario.ativo}">
+    		<h:inputHidden value="#{usuarioBean.idUsuario}" />
+	    	<p:commandLink id="ativar" action="#{usuarioBean.ativar()}" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+	        	<h:outputText styleClass="fa fa-fw fa-group"></h:outputText>
+	        	<p:confirm header="Atençao!!" message="Ativar Usuario??" icon="ui-icon-alert" />
+	        </p:commandLink>
+	        
+	        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	    	</p:confirmDialog>
+	        <p:tooltip id="ativarFade" for="ativar" value="Ativar Usuario" />
+	    </h:form>
+            	
+        <h:outputLink id="editar" value="cadastraUsuario.xhtml" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" 
+        rendered="#{usuarioBean.usuario.ativo}">
+        	<h:outputText styleClass="ui-icon ui-icon-pencil" />
+        	<f:param name="id" value="#{usuarioBean.usuario.id}"/>
+        </h:outputLink>
+        <p:tooltip id="editarFade" for="editar" value="Editar Usuario" />
+        
+    </f:facet>
+    </p:panel>
+
+</ui:define>
+</ui:composition>
+
+</h:body> 
+</html>

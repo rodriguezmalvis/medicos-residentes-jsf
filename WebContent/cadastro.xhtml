@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:body> 
+
+	<ui:composition template="/_template.xhtml">
+	<ui:define name="conteudo">
+	
+	
+	<f:metadata>
+		<f:viewParam name="id" value="#{medicoResidenteBean.idMedico}"></f:viewParam>
+		<f:viewAction action="#{medicoResidenteBean.buscaMedico}"></f:viewAction>
+	</f:metadata>
+
+	<h:form>
+		<h:inputHidden id="path" value="#{medicoResidenteBean.medico.pathFoto}" />
+		
+		<p:messages id="messages" showDetail="true" autoUpdate="true" />
+		
+		<p:fieldset legend="Dados do Médico">
+		<div style="width: 100%; text-align: center"><p:graphicImage  id="foto" width="100px" height="100px" url="#{medicoResidenteBean.pathFoto}" /></div><br />
+		<p:panelGrid columns="4" layout="grid">
+			<p:outputLabel for="nome" value="Nome Completo:" />
+			<p:inputText id="nome" value="#{medicoResidenteBean.medico.nomeCompleto}"/>
+			
+			<p:outputLabel for="dataNascimento" value="Data de nascimento:" />
+	        <p:calendar yearRange="c-100:c+0" id="dataNascimento" navigator="true" pattern="dd-MM-yyyy" value="#{medicoResidenteBean.medico.dataNascimento.time}"/>
+	        
+			<p:outputLabel for="lugarGraduacao" value="Lugar de graduaçao" />
+			<p:inputText id="lugarGraduacao" value="#{medicoResidenteBean.medico.lugarGraduacao}"/>
+			
+			<p:outputLabel for="anoGraduacao" value="Ano graduaçao:" />
+			<p:calendar yearRange="c-100:c+0" id="anoGraduacao" navigator="true" pattern="dd-MM-yyyy" value="#{medicoResidenteBean.medico.anoGraduacao.time}"/>
+			
+			<p:outputLabel for="dataInicio" value="Data inicio residencia:" />
+			<p:calendar yearRange="c-100:c+0" id="dataInicio" navigator="true" pattern="dd-MM-yyyy" value="#{medicoResidenteBean.medico.anoInicioResidencia.time}"/>
+			
+			<p:outputLabel for="supervisores" value="Supervisores:" />
+			<p:inputText id="supervisores" value="#{medicoResidenteBean.medico.professoresSupervisores}"/>
+			
+			<p:outputLabel for="clinicaFamila" value="Clinica de familia:" />
+			<p:inputText id="clinicaFamila" value="#{medicoResidenteBean.medico.clinicaFamilia}"/>
+			
+			<h:inputHidden value="#{medicoResidenteBean.medico.id}" />
+			<h:inputHidden value="#{medicoResidenteBean.medico.ativo}" />
+		</p:panelGrid><br></br>
+		</p:fieldset>
+		
+		<div style="width: 100%; text-align: center"><br />
+			<p:commandButton action="#{medicoResidenteBean.gravar()}" value="gravar" icon="ui-icon-check" style="margin-right:1cm"></p:commandButton>
+			<p:commandButton icon="fa fa-fw fa-upload" value="Subir foto" type="button"  onclick="PF('upload').show();" style="margin-right:1cm"></p:commandButton>
+			<p:commandButton icon="fa fa-fw fa-camera" value="Tirar Foto" type="button"  onclick="PF('cam').show();" />
+		    		     
+		    <p:dialog id="cam" widgetVar="cam" header="Portable Cam" resizable="false" dynamic="true">
+				<h:panelGrid columns="4" cellpadding="5">
+			        <p:photoCam widgetVar="pc" listener="#{camaraBean.oncapture}" update="photo foto path" Width="280" Height="240" photoWidth="280" photoHeight="240"/>
+			        <p:commandButton icon="fa fa-fw fa-camera-retro" type="button" value="Capturar" onclick="PF('pc').capture()"/>
+			        <p:outputPanel id="photo">
+			            <p:graphicImage width="100px" height="100px" url="#{camaraBean.filenameCompleto}" rendered="#{not empty camaraBean.filenameCompleto}"/>
+			        </p:outputPanel>
+			    </h:panelGrid>		 		
+		    </p:dialog>  
+		    
+		    <p:dialog id="upload" widgetVar="upload" header="Subir Foto" resizable="false" dynamic="true">
+				<h:panelGrid columns="4" cellpadding="5">
+			        <p:fileUpload fileUploadListener="#{uploadBean.upload}" auto="true" 
+			        allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="photo2 foto path"/>
+			        <p:outputPanel id="photo2">
+			            <p:graphicImage width="100px" height="100px" url="#{uploadBean.filenameCompleto}" rendered="#{not empty uploadBean.filenameCompleto}"/>
+			        </p:outputPanel>
+			    </h:panelGrid>		 		
+		    </p:dialog>  
+		    
+		</div>
+		
+	</h:form>
+	
+	</ui:define>
+	</ui:composition>
+	
+</h:body> 
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:body> 
+	
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Email:" for="email"/>
+			<h:inputText value="#{loginBean.email}" id="email" />
+			
+			<h:outputLabel value="Senha:" for="senha"/>
+			<h:inputText value="#{loginBean.senha}" id="senha" />
+			
+			<h:commandButton action="#{loginBean.efetuaLogin()}" value="Efetuar Login"/>
+		</h:panelGrid>
+	</h:form>
+	
+</h:body>
+</html>
